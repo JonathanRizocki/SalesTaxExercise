@@ -27,6 +27,7 @@ public class Application {
 		System.out.println(order.printReceipt());
 		
 		System.out.println("\n\nPlese run CheckoutTest.java in the src/main/test source folder for unit test demonstration.");
+		
 	}
 
 }
