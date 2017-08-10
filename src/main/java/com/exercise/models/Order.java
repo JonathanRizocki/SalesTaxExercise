@@ -13,8 +13,25 @@ public class Order {
 	
 	private final BigDecimal importedSalesTax;
 	private final BigDecimal basicSalesTax;
-		
+	
+	/**
+	 * 
+	 * @param basicSalesTax BigDecimal basicSalesTax value - taken in as a decimal value (0.10).
+	 * @param importedSalesTax BigDecimal importedSalesTax value - taken in as a decimal value (0.05).
+	 * @param lineItems List<OrderLineItem> - The line items associated with the order.
+	 */
 	public Order(BigDecimal basicSalesTax, BigDecimal importedSalesTax, List<OrderLineItem> lineItems) {
+		if (lineItems == null || lineItems.isEmpty()) {
+			throw new IllegalArgumentException("LineItems must be a populated list.");
+		}
+		
+		if (basicSalesTax.signum() == -1 || basicSalesTax.signum() == 0) {
+			throw new IllegalArgumentException("Basic Sales Tax must be greater than 0.");
+		}
+		
+		if (importedSalesTax.signum() == -1 || importedSalesTax.signum() == 0) {
+			throw new IllegalArgumentException("Imported Sales Tax must be greater than 0.");
+		}
 		this.lineItems = lineItems;
 		this.importedSalesTax = importedSalesTax;
 		this.basicSalesTax = basicSalesTax;
@@ -159,13 +176,8 @@ public class Order {
 	public BigDecimal getSalesTaxes() {
 		return salesTaxes;
 	}
-	public void setSalesTaxes(BigDecimal salesTaxes) {
-		this.salesTaxes = salesTaxes;
-	}
 	public BigDecimal getTotal() {
 		return total;
 	}
-	public void setTotal(BigDecimal total) {
-		this.total = total;
-	}
+
 }

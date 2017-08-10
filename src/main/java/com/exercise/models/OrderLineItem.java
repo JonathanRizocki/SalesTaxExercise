@@ -10,10 +10,8 @@ public class OrderLineItem {
 	private BigDecimal total;
 	
 	/**
-	 * @param count
-	 * @param item
-	 * @param taxes
-	 * @param total
+	 * @param count Int count
+	 * @param item Item item
 	 */
 	public OrderLineItem(int count, Item item) {
 		
@@ -36,6 +34,9 @@ public class OrderLineItem {
 	}
 
 	public void setCount(int count) {
+		if (count < 1) {
+			throw new IllegalArgumentException("Item Count must be greater than 0");
+		}
 		this.count = count;
 	}
 
@@ -44,6 +45,9 @@ public class OrderLineItem {
 	}
 
 	public void setItem(Item item) {
+		if (item == null) {
+			throw new IllegalArgumentException("Item cannot be null");
+		}
 		this.item = item;
 	}
 

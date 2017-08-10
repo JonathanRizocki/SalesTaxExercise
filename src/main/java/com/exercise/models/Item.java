@@ -16,6 +16,13 @@ public class Item {
 		imported = false;
 	}
 
+	/**
+	 * Create a new item to be added to as part of an Order's line item.
+	 * @param name String - Item Name
+	 * @param type ItemTypeEnum - Item Type
+	 * @param price BigDecial - Item price
+	 * @param imported Boolean - item imported = true. Not imported = false
+	 */
 	public Item(String name, ItemTypeEnum type, BigDecimal price, boolean imported) {
 		
 		if (name == null || name.isEmpty()) {
@@ -42,18 +49,29 @@ public class Item {
 		return name;
 	}
 	public void setName(String name) {
+		if (name == null || name.isEmpty()) {
+			throw new IllegalArgumentException("Name must be a non-empty string.");
+		}
 		this.name = name;
 	}
 	public ItemTypeEnum getType() {
 		return type;
 	}
 	public void setType(ItemTypeEnum type) {
+		if (type == null) {
+			throw new IllegalArgumentException("ItemType cannot be null.");
+		}
 		this.type = type;
 	}
 	public BigDecimal getPrice() {
 		return price;
 	}
 	public void setPrice(BigDecimal price) {
+		if (price == null) {
+			throw new IllegalArgumentException("Price must be greater than 0");
+		} else if (price.signum() == -1 || price.signum() == 0) {
+			throw new IllegalArgumentException("Price must be greater than 0");
+		}
 		this.price = price;
 	}
 	public boolean isImported() {

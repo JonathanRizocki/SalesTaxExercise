@@ -102,5 +102,22 @@ public class CheckoutTest {
 		assertEquals(new BigDecimal(74.68).setScale(2, BigDecimal.ROUND_HALF_EVEN), order.getTotal());
 		assertEquals(expectedResponse, response);
 	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testNegativeItemPrice() {
+	    Item item = new Item("test", ItemTypeEnum.BOOK, new BigDecimal(-50.0), false);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testEmptyOrderItemList() {
+	    Order order = new Order(basicSalesTax, importedSalesTax, new ArrayList<OrderLineItem>());
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testNonPositiveTax() {
+		Item importedPerfume = new Item("imported bottle of perfume", ItemTypeEnum.OTHER, new BigDecimal(27.99), true);
+		lineItems.add(new OrderLineItem(1, importedPerfume));
+	    Order order = new Order(new BigDecimal(0.00), new BigDecimal(-0.05), lineItems);
+	}
 
 }
